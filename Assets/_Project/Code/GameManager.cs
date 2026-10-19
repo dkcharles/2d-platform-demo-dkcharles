@@ -95,8 +95,9 @@ public sealed class GameManager : MonoBehaviour
         {
 
             GameRunning = true;
-            AudioSystem.Instance.PlayMusic(ambientMusic, 0.1f);
-            AudioSystem.Instance.PlayWeather(heavyRain, 0.5f);
+            // only play clips that have been assigned in the inspector
+            if (ambientMusic != null) AudioSystem.Instance.PlayMusic(ambientMusic, 0.1f);
+            if (heavyRain != null) AudioSystem.Instance.PlayWeather(heavyRain, 0.5f);
             Debug.Log("Game is running");
             // Example of loading a scene by name
             // This will work if the gameplay scene is called GamePlay and it is added to the build settings
@@ -110,10 +111,10 @@ public sealed class GameManager : MonoBehaviour
         }
         else // game is running
         {
-            // update player health in the UI
-            healthText.text = "Health: " + PlayerHealth.ToString();
-            // update player score in the UI
-            scoreText.text = "Score: " + PlayerScore.ToString();
+            // update player health in the UI (if the text object has been assigned)
+            if (healthText != null) healthText.text = "Health: " + PlayerHealth.ToString();
+            // update player score in the UI (if the text object has been assigned)
+            if (scoreText != null) scoreText.text = "Score: " + PlayerScore.ToString();
         }
     }
         private void GameOver()
